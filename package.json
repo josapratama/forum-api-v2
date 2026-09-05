@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "test": "jest --coverage",
+    "test": "jest --coverage --runInBand --forceExit",
     "test:watch": "jest --watch",
     "migrate": "node-pg-migrate up",
     "migrate:test": "cross-env NODE_ENV=test node-pg-migrate up",

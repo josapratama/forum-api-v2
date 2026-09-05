@@ -1,4 +1,3 @@
-const { createContainer, asClass, asValue, asFunction } = require("awilix");
 const bcrypt = require("bcryptjs");
 const { nanoid } = require("nanoid");
 const Jwt = require("@hapi/jwt");
@@ -30,10 +29,8 @@ const AddReplyUseCase = require("../Applications/use_case/AddReplyUseCase");
 const DeleteReplyUseCase = require("../Applications/use_case/DeleteReplyUseCase");
 const ToggleLikeUseCase = require("../Applications/use_case/ToggleLikeUseCase");
 
-// Simple DI container (manual)
 class ServiceContainer {
   constructor() {
-    this._instances = {};
     this._pool = pool;
     this._idGenerator = nanoid;
 
