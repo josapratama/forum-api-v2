@@ -33,7 +33,7 @@ const createServer = async (container) => {
     console.error("Unhandled error:", error);
     return res.status(500).json({
       status: "error",
-      message: "terjadi kegagalan pada server kami",
+      message: error.message || "terjadi kegagalan pada server kami",
     });
   });
 
