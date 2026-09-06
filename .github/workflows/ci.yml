@@ -1,0 +1,66 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: developer
+          POSTGRES_PASSWORD: supersecretpassword
+          POSTGRES_DB: forumapi_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Install bcrypt native addon
+        run: npm rebuild bcrypt --build-from-source
+
+      - name: Run database migrations (test)
+        run: npm run migrate:test up
+        env:
+          NODE_ENV: test
+          PGHOST_TEST: localhost
+          PGPORT_TEST: 5432
+          PGDATABASE_TEST: forumapi_test
+          PGUSER_TEST: developer
+          PGPASSWORD_TEST: supersecretpassword
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+        env:
+          NODE_ENV: test
+          HOST: localhost
+          PORT: 3000
+          PGHOST_TEST: localhost
+          PGPORT_TEST: 5432
+          PGDATABASE_TEST: forumapi_test
+          PGUSER_TEST: developer
+          PGPASSWORD_TEST: supersecretpassword
+          ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
+          REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
+          ACCCESS_TOKEN_AGE: 3000
