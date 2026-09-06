@@ -1,6 +1,6 @@
-import NotFoundError from '../../Commons/exceptions/NotFoundError.js';
-import CreatedThread from '../../Domains/threads/entities/CreatedThread.js';
-import ThreadRepository from '../../Domains/threads/ThreadRepository.js';
+import NotFoundError from "../../Commons/exceptions/NotFoundError.js";
+import CreatedThread from "../../Domains/threads/entities/CreatedThread.js";
+import ThreadRepository from "../../Domains/threads/ThreadRepository.js";
 
 class ThreadRepositoryPostgres extends ThreadRepository {
   constructor(pool, idGenerator) {
@@ -14,7 +14,7 @@ class ThreadRepositoryPostgres extends ThreadRepository {
     const id = `thread-${this._idGenerator()}`;
 
     const query = {
-      text: 'INSERT INTO threads VALUES($1, $2, $3, $4, NOW()) RETURNING id, title, owner',
+      text: "INSERT INTO threads (id, title, body, owner, date) VALUES($1, $2, $3, $4, NOW()) RETURNING id, title, owner",
       values: [id, title, body, owner],
     };
 
@@ -24,14 +24,14 @@ class ThreadRepositoryPostgres extends ThreadRepository {
 
   async verifyThreadExists(threadId) {
     const query = {
-      text: 'SELECT id FROM threads WHERE id = $1',
+      text: "SELECT id FROM threads WHERE id = $1",
       values: [threadId],
     };
 
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError('thread tidak ditemukan');
+      throw new NotFoundError("thread tidak ditemukan");
     }
   }
 
@@ -47,7 +47,7 @@ class ThreadRepositoryPostgres extends ThreadRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError('thread tidak ditemukan');
+      throw new NotFoundError("thread tidak ditemukan");
     }
 
     return result.rows[0];
