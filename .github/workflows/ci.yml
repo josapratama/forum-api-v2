@@ -49,23 +49,18 @@ jobs:
           PGDATABASE: forumapi_test
           PGUSER: developer
           PGPASSWORD: supersecretpassword
-          PGHOST_TEST: localhost
-          PGPORT_TEST: 5432
-          PGDATABASE_TEST: forumapi_test
-          PGUSER_TEST: developer
-          PGPASSWORD_TEST: supersecretpassword
 
       - name: Run tests with coverage
         run: npm run test:coverage
         env:
           NODE_ENV: test
           HOST: localhost
-          PORT: 3000
-          PGHOST_TEST: localhost
-          PGPORT_TEST: 5432
-          PGDATABASE_TEST: forumapi_test
-          PGUSER_TEST: developer
-          PGPASSWORD_TEST: supersecretpassword
+          PORT: 5000
+          PGHOST: localhost
+          PGPORT: 5432
+          PGDATABASE: forumapi_test
+          PGUSER: developer
+          PGPASSWORD: supersecretpassword
           ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
           REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
           ACCCESS_TOKEN_AGE: 3000

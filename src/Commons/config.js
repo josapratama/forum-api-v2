@@ -28,7 +28,7 @@ const getDatabaseConfig = () => {
 const config = {
   app: {
     host: process.env.NODE_ENV !== "production" ? "localhost" : "0.0.0.0",
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 5000,
   },
   database: getDatabaseConfig(),
   auth: {
