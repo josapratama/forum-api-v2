@@ -4,7 +4,7 @@ import { createContainer } from "instances-container";
 
 // external agency
 import { nanoid } from "nanoid";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import pool from "./database/postgres/pool.js";
 import jwt from "jsonwebtoken";
 
