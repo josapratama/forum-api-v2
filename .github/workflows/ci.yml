@@ -31,8 +31,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "22"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci --ignore-scripts
@@ -41,9 +41,14 @@ jobs:
         run: npm rebuild bcrypt --build-from-source
 
       - name: Run database migrations (test)
-        run: npm run migrate:test up
+        run: npm run migrate:test
         env:
           NODE_ENV: test
+          PGHOST: localhost
+          PGPORT: 5432
+          PGDATABASE: forumapi_test
+          PGUSER: developer
+          PGPASSWORD: supersecretpassword
           PGHOST_TEST: localhost
           PGPORT_TEST: 5432
           PGDATABASE_TEST: forumapi_test

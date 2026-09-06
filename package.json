@@ -13,7 +13,6 @@
     "migrate": "node node_modules/node-pg-migrate/bin/node-pg-migrate.js up",
     "migrate:prod": "cross-env NODE_ENV=production node node_modules/node-pg-migrate/bin/node-pg-migrate.js up",
     "migrate:test": "cross-env NODE_ENV=test node node_modules/node-pg-migrate/bin/node-pg-migrate.js up",
-    "migrate:down": "node node_modules/node-pg-migrate/bin/node-pg-migrate.js down",
     "db:start": "docker compose up -d",
     "db:stop": "docker compose down",
     "db:setup": "powershell -ExecutionPolicy Bypass -File setup-and-test.ps1",
