@@ -16,12 +16,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli --allow-scripts
 
-      - name: Deploy to Railway
-        run: railway up --service forum-api --detach
+      - name: Upload code to Railway
+        run: railway up --service forum-api --environment production --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_PROJECT_ID: c565ecb1-3a02-4ab1-8505-5624c42c3f07
+
+      - name: Redeploy Railway service
+        run: |
+          RESPONSE=$(curl -s -X POST https://backboard.railway.app/graphql/v2 \
+            -H "Authorization: Bearer ${{ secrets.RAILWAY_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"mutation { serviceInstanceRedeploy(serviceId: \\\"41a0afe9-e43f-41fb-878b-c89c2854d444\\\", environmentId: \\\"f3ce8037-b6ed-4a45-be22-040b85c81706\\\") }\"}")
+          echo "Response: $RESPONSE"
+          echo "Deployment triggered!"
