@@ -4,3 +4,5 @@ config/database/test.json
 coverage
 .env
 *.zip
+
+.railway/
