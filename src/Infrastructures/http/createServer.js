@@ -12,6 +12,14 @@ const threadsRateLimiter = rateLimit({
   max: 90, // 90 requests per window
   standardHeaders: true,
   legacyHeaders: false,
+  // Use the actual client IP from X-Forwarded-For (first IP in chain)
+  keyGenerator: (req) => {
+    const forwarded = req.headers["x-forwarded-for"];
+    if (forwarded) {
+      return forwarded.split(",")[0].trim();
+    }
+    return req.ip || req.connection.remoteAddress;
+  },
   message: {
     status: "fail",
     message: "Terlalu banyak permintaan, coba lagi setelah 1 menit.",
