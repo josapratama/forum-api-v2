@@ -21,6 +21,9 @@ const threadsRateLimiter = rateLimit({
 const createServer = async (container) => {
   const app = express();
 
+  // Trust Railway's reverse proxy to get correct client IP for rate limiting
+  app.set("trust proxy", 1);
+
   // Middleware for parsing JSON
   app.use(express.json());
 
