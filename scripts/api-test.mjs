@@ -3,7 +3,7 @@
  * Run: DATABASE_URL=... node scripts/api-test.mjs
  */
 
-const BASE = 'https://forum-api-production-26d4.up.railway.app';
+const BASE = 'https://forum-api-production-12cc.up.railway.app';
 let pass = 0, fail = 0;
 
 async function req(method, path, body, token) {

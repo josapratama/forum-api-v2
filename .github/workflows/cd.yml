@@ -32,6 +32,6 @@ jobs:
           RESPONSE=$(curl -s -X POST https://backboard.railway.app/graphql/v2 \
             -H "Authorization: Bearer ${{ secrets.RAILWAY_API_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "{\"query\":\"mutation { serviceInstanceRedeploy(serviceId: \\\"41a0afe9-e43f-41fb-878b-c89c2854d444\\\", environmentId: \\\"f3ce8037-b6ed-4a45-be22-040b85c81706\\\") }\"}")
+            -d "{\"query\":\"mutation { serviceInstanceRedeploy(serviceId: \\\"7eae00f6-0ff3-4cdc-bed4-52e13f6f1155\\\", environmentId: \\\"f3ce8037-b6ed-4a45-be22-040b85c81706\\\") }\"}")
           echo "Response: $RESPONSE"
           echo "Deployment triggered!"
